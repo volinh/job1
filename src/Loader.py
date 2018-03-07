@@ -1,4 +1,5 @@
 from elasticsearch import Elasticsearch,Transport,RequestsHttpConnection,helpers
+from annoy import AnnoyIndex
 from gensim import corpora
 import setting
 import logging
@@ -17,6 +18,7 @@ def get_elasticsearch_client():
     )
 
 def count_data(es):
+    logging.info("count amount of data")
     query_count = {
         "query": {
             "match": {
@@ -28,6 +30,7 @@ def count_data(es):
     logging.info("số lượng sản phẩm : " + str(rs["count"]))
 
 def scan_data(es):
+    logging.info("scan data from sever")
     dict_product = {}
     query_scan = {
         "query": {
@@ -48,10 +51,12 @@ def scan_data(es):
     return dict_product
 
 def load_dictionary(filePath):
+    logging.info("load dictionary")
     dictionary = corpora.Dictionary.load_from_text(filePath)
     return dictionary
 
 def load_dict_product(filePath):
+    logging.info("load dictionary of product")
     dict_product = {}
     with open(filePath,"r") as file:
         for line in file.readlines():
@@ -59,24 +64,49 @@ def load_dict_product(filePath):
             dict_product[arr[0].strip()] = arr[1].strip()
     return dict_product
 
+def load_dict_vecto_tfidf(filePath):
+    dict_vecto_tfidf = {}
+    with open(filePath,"r") as file:
+        for line in file.readlines():
+            arr = line.split(" ")
+            vecto = []
+            for i in range(len(arr)):
+                if i==0:
+                    id = arr[0]
+                else:
+                    tuple = arr[i].split(":")
+                    id_word = int(tuple[0])
+                    val = float(tuple[1])
+                    vecto.append((id_word,val))
+            dict_vecto_tfidf[id] = vecto
+    return dict_vecto_tfidf
+
+def load_tree(filePath,dimension):
+    logging.info("load a tree")
+    t = AnnoyIndex(dimension)
+    t.load(filePath)
+    return t
+
 def save_dictionary(filePath,dictionary):
-    dictionary.save_as_text(filePath)
     logging.info("save dictionary")
+    dictionary.save_as_text(filePath)
 
 def save_dict_product(filePath,dict_product):
+    logging.info("save dictionary of product")
     with open(filePath,"w") as file:
         for id ,content in dict_product.items():
             file.writelines( id + " : " + content + "\n")
-    logging.info("save dictionary of product")
 
 def save_dict_vecto_tfidf(filePath,dict_vecto_tfidf):
+    logging.info("save dictionary of tfidf product vectors")
     with open(filePath,"w") as file:
         for id, vecto in dict_vecto_tfidf.items():
             text = id
             for k in vecto:
                 text = text + " " + str(k[0]) + ":" + str(k[1])
             file.writelines(text + "\n")
-    logging.info("save dictionary of tfidf product vectors")
 
-
+def save_tree(filePath,tree):
+    logging.info("save tree")
+    tree.save(filePath)
 

@@ -6,6 +6,7 @@ DICT_PRODUCT_PATH = "../data/dict_product"
 DICT_RAW_PRODUCT_PATH = "../data/dict_raw_product"
 DICT_VECTO_TFIDF_PATH = "../data/dict_vecto_tfidf"
 DICTIONARY_PATH = "../data/dictionary"
+TREE_PATH = "../data/tree"
 
 def assigned_parameter():
     pass

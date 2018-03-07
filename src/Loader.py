@@ -1,4 +1,5 @@
 from elasticsearch import Elasticsearch,Transport,RequestsHttpConnection,helpers
+from gensim import corpora
 from src import setting
 import logging
 
@@ -15,7 +16,7 @@ def get_elasticsearch_client():
         timeout=20
     )
 
-def counting_data(es):
+def count_data(es):
     query_count = {
         "query": {
             "match": {
@@ -26,7 +27,7 @@ def counting_data(es):
     rs = es.count(index="dynamic_data", doc_type="doc", body=query_count)
     logging.info("số lượng sản phẩm : " + str(rs["count"]))
 
-def scanning_data(es):
+def scan_data(es):
     dict_product = {}
     query_scan = {
         "query": {
@@ -46,8 +47,36 @@ def scanning_data(es):
 
     return dict_product
 
-def loading_dictionary(filepath):
-    pass
+def load_dictionary(filePath):
+    dictionary = corpora.Dictionary.load_from_text(filePath)
+    return dictionary
 
-def loading_corpus(filepath):
-    pass
+def load_dict_product(filePath):
+    dict_product = {}
+    with open(filePath,"r") as file:
+        for line in file.readlines():
+            arr = line.split(":")
+            dict_product[arr[0].strip()] = arr[1].strip()
+    return dict_product
+
+def save_dictionary(filePath,dictionary):
+    dictionary.save_as_text(filePath)
+    logging.info("save dictionary")
+
+def save_dict_product(filePath,dict_product):
+    with open(filePath,"w") as file:
+        for id ,content in dict_product.items():
+            file.writelines( id + " : " + content + "\n")
+    logging.info("save dictionary of product")
+
+def save_dict_vecto_tfidf(filePath,dict_vecto_tfidf):
+    with open(filePath,"w") as file:
+        for id, vecto in dict_vecto_tfidf.items():
+            text = id
+            for k in vecto:
+                text = text + " " + str(k[0]) + ":" + str(k[1])
+            file.writelines(text + "\n")
+    logging.info("save dictionary of tfidf product vectors")
+
+
+

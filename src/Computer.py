@@ -1,6 +1,6 @@
 from annoy import AnnoyIndex
-from src import setting
-from src import Loader as loader
+import setting
+import Loader as loader
 from gensim import corpora,models,matutils
 import logging
 import re

@@ -1,6 +1,6 @@
 from elasticsearch import Elasticsearch,Transport,RequestsHttpConnection,helpers
 from gensim import corpora
-from src import setting
+import setting
 import logging
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)

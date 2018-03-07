@@ -1,6 +1,6 @@
-from src import Loader as loader
-from src import Computer as cp
-from src import setting
+import Loader as loader
+import Computer as cp
+import setting
 import time
 import logging
 import os

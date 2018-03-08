@@ -85,7 +85,7 @@ def make_tree(filePath,dict,dimension,amount_tree):
     t.save(filePath)
     return t
 
-def build_tree(dict_id,dict_vecto,dimension,amount_tree):
+def make_tree(dict_id,dict_vecto,dimension,amount_tree):
     logging.info("make a tree")
     t = AnnoyIndex(dimension)
     for i in dict_id:

@@ -58,6 +58,16 @@ def a_to_z():
     list_nns = tree.get_nns_by_item(0,20)
     logging.info(list_nns)
 
+def b_to_z():
+    logging.info("B -> Z")
+    dictionary = loader.load_dictionary(setting.DICTIONARY_PATH)
+    dict_vecto_tfidf = loader.load_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH)
+    sparse_matrix = cp.reduce_dimention(dict_vecto_tfidf.values(), len(dictionary), n_components=500, batch_size=20000)
+    shape = sparse_matrix.shape
+    logging.info("shape : " + str(shape))
+    dense_matrix = list(sparse_matrix.todense())
+
+
 def test_compatible_components(tree,dict_map_id):
     pass
 
@@ -89,7 +99,8 @@ if __name__ == "__main__" :
     # # print(sparse.T[0:100].T)
     # # print("---------------")
 
-    a_to_z()
+    # a_to_z()
+    b_to_z()
     # dictionary = loader.load_dictionary(setting.DICTIONARY_PATH)
     # dict_vecto_tfidf = loader.load_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH)
     # sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf.values(), num_terms=len(dictionary)).toarray()

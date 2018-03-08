@@ -71,9 +71,9 @@ def reduce_dimension_svd(dict_vecto_tfidf,n_dictionary,n_components):
     logging.info("reduce dimention of matrix by svd")
     sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf, num_terms=n_dictionary)
     ipca = TruncatedSVD(n_components=n_components)
-    ipca.fit(sparse_matrix_scipy.T.toarray())
+    ipca.fit(sparse_matrix_scipy.T)
     logging.info("transform")
-    sparse_matrix_scipy = ipca.transform(sparse_matrix_scipy.T.toarray())
+    sparse_matrix_scipy = ipca.transform(sparse_matrix_scipy.T)
     return sparse_matrix_scipy
 
 def build_tree(filePath,dict,dimension,amount_tree):

@@ -2,7 +2,7 @@ from annoy import AnnoyIndex
 import setting
 import Loader as loader
 from gensim import corpora,models,matutils
-from sklearn.decomposition import IncrementalPCA
+from sklearn.decomposition import IncrementalPCA,TruncatedSVD
 import logging
 import re
 
@@ -58,10 +58,19 @@ def transform_vecto_tfidf(dict_product):
     loader.save_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH,dict_vecto_tfidf)
     return dict_vecto_tfidf,dictionary
 
-def reduce_dimention(dict_vecto_tfidf,n_dictionary,n_components,batch_size=2000):
-    logging.info("reduce dimention of matrix")
+def reduce_dimention_pca(dict_vecto_tfidf,n_dictionary,n_components,batch_size=2000):
+    logging.info("reduce dimention of matrix by pca")
     sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf,num_terms=n_dictionary)
     ipca = IncrementalPCA(n_components=n_components,batch_size=batch_size,copy=False)
+    ipca.fit(sparse_matrix_scipy.T.toarray())
+    logging.info("transform")
+    sparse_matrix_scipy = ipca.transform(sparse_matrix_scipy.T.toarray())
+    return sparse_matrix_scipy
+
+def reduce_dimension_svd(dict_vecto_tfidf,n_dictionary,n_components):
+    logging.info("reduce dimention of matrix by svd")
+    sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf, num_terms=n_dictionary)
+    ipca = TruncatedSVD(n_components=n_components)
     ipca.fit(sparse_matrix_scipy.T.toarray())
     logging.info("transform")
     sparse_matrix_scipy = ipca.transform(sparse_matrix_scipy.T.toarray())

@@ -62,7 +62,8 @@ def b_to_z():
     logging.info("B -> Z")
     dictionary = loader.load_dictionary(setting.DICTIONARY_PATH)
     dict_vecto_tfidf = loader.load_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH)
-    sparse_matrix = cp.reduce_dimention(dict_vecto_tfidf.values(), len(dictionary), n_components=500, batch_size=20000)
+    # sparse_matrix = cp.reduce_dimention_pca(dict_vecto_tfidf.values(), len(dictionary), n_components=500, batch_size=20000)
+    sparse_matrix = cp.reduce_dimention_svd(dict_vecto_tfidf.values(), len(dictionary), n_components=500)
     shape = sparse_matrix.shape
     logging.info("shape : " + str(shape))
     dense_matrix = list(sparse_matrix.todense())

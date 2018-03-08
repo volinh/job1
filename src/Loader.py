@@ -111,3 +111,15 @@ def save_tree(filePath,tree):
     logging.info("save tree")
     tree.save(filePath)
 
+def save_result(filePath,dict_product,dict_map_id,dict_result):
+    with open(filePath,"w") as file:
+        for id,value in dict_result.items():
+            real_id = dict_map_id[id]
+            text_id = dict_product[real_id]
+            file.writelines("-----------------------------\n")
+            file.writelines(real_id + " : " + text_id)
+            for id_nns in value:
+                real_id_nns = dict_map_id[id_nns]
+                text_id_nns = dict_product[id_nns]
+                file.writelines(real_id_nns + " : " + text_id_nns)
+            file.writelines("-----------------------------\n")

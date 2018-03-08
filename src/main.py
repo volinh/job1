@@ -79,9 +79,12 @@ def b_to_z():
     tree = cp.make_tree(dict_id=dict_map_id.keys(), dict_vecto=dense_matrix, dimension=shape[1], amount_tree=10)
 
     # b9 : search nns in tree
-    list_nns = tree.get_nns_by_item(0, 20)
-    logging.info(list_nns)
-
+    dict_result = {}
+    for i in range(100):
+        list_nns = tree.get_nns_by_item(i, 11)
+        dict_result[i] = list_nns
+    dict_product = loader.load_dict_product(setting.DICT_PRODUCT_PATH + "/500")
+    loader.save_result(setting.DICT_RESULT_PATH,dict_product,dict_map_id,dict_result)
 
 
 

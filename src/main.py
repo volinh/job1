@@ -46,10 +46,11 @@ def a_to_z():
     dict_map_id = map_id_product(list_id_product)
 
     # b7 : reduce large matrix
-    sparse_matrix = cp.reduce_dimention(dict_vecto_tfidf.values(), len(dictionary), n_components=500,batch_size=20000)
+    # sparse_matrix = cp.reduce_dimention(dict_vecto_tfidf.values(), len(dictionary), n_components=500,batch_size=20000)
+    sparse_matrix = cp.reduce_dimension_svd(dict_vecto_tfidf.values(), len(dictionary), n_components=500)
     shape = sparse_matrix.shape
     logging.info("shape : " + str(shape))
-    dense_matrix = list(sparse_matrix.todense())
+    dense_matrix = list(sparse_matrix)
 
     # b8 : build tree
     tree = cp.build_tree(dict_id=dict_map_id.keys(),dict_vecto=dense_matrix,dimension=shape[1],amount_tree=10)
@@ -66,7 +67,7 @@ def b_to_z():
     sparse_matrix = cp.reduce_dimension_svd(dict_vecto_tfidf.values(), len(dictionary), n_components=500)
     shape = sparse_matrix.shape
     logging.info("shape : " + str(shape))
-    dense_matrix = list(sparse_matrix.todense())
+    dense_matrix = list(sparse_matrix)
 
 
 def test_compatible_components(tree,dict_map_id):
@@ -101,7 +102,7 @@ if __name__ == "__main__" :
     # # print("---------------")
 
     # a_to_z()
-    b_to_z()
+    a_to_z()
     # dictionary = loader.load_dictionary(setting.DICTIONARY_PATH)
     # dict_vecto_tfidf = loader.load_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH)
     # sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf.values(), num_terms=len(dictionary)).toarray()

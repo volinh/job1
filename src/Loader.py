@@ -112,6 +112,7 @@ def save_tree(filePath,tree):
     tree.save(filePath)
 
 def save_result(filePath,dict_product,dict_map_id,dict_result):
+    logging.info("save result")
     with open(filePath,"w") as file:
         for id,value in dict_result.items():
             real_id = dict_map_id[id]

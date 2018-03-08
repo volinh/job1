@@ -18,8 +18,10 @@ def make_folder(folderPath):
 def map_id_product(list_id_product):
     logging.info("map list of product's id")
     dict_map_id = {}
-    for i in range(len(list_id_product)):
-        dict_map_id[i] = list_id_product[i]
+    i = 0
+    for id in list_id_product:
+        dict_map_id[i] = id
+        i +=1
     return dict_map_id
 
 def a_to_z():
@@ -88,6 +90,24 @@ if __name__ == "__main__" :
     # # print("---------------")
 
     a_to_z()
+
+    # dict_vecto_tfidf = loader.load_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH)
+    # count = 0
+    # for id,vecto in dict_vecto_tfidf.items():
+    #     print(id)
+    #     print(vecto)
+    #     count +=1
+    #     if count>=10:
+    #         break
+    #
+    # count = 0
+    # for id in dict_vecto_tfidf.keys():
+    #     print(id)
+    #     count +=1
+    #     if count>=10:
+    #         break
+    # print(type(list(dict_vecto_tfidf.keys)))
+
 
     time_end = time.time()
     logging.info("thời gian chạy : " + str(time_end - time_start) + "s")

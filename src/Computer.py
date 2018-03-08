@@ -61,7 +61,7 @@ def transform_vecto_tfidf(dict_product):
 def reduce_dimention(dict_vecto_tfidf,n_dictionary,n_components,batch_size=2000):
     logging.info("reduce dimention of matrix")
     sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf,num_terms=n_dictionary)
-    ipca = IncrementalPCA(n_components=n_components,batch_size=batch_size)
+    ipca = IncrementalPCA(n_components=n_components,batch_size=batch_size,copy=False)
     ipca.fit(sparse_matrix_scipy.T.toarray())
     sparse_matrix_scipy = ipca.transform(sparse_matrix_scipy.T.toarray())
     return sparse_matrix_scipy

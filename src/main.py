@@ -46,7 +46,7 @@ def a_to_z():
     dict_map_id = map_id_product(list_id_product)
 
     # b7 : reduce large matrix
-    sparse_matrix = cp.reduce_dimention(dict_vecto_tfidf.values(), dictionary, n_components=1000,batch_size=10000)
+    sparse_matrix = cp.reduce_dimention(dict_vecto_tfidf.values(), len(dictionary), n_components=1000,batch_size=2000)
     shape = sparse_matrix.shape
     logging.info("shape : " + str(shape))
     dense_matrix = list(sparse_matrix.todense())

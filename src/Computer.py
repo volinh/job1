@@ -58,9 +58,9 @@ def transform_vecto_tfidf(dict_product):
     loader.save_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH,dict_vecto_tfidf)
     return dict_vecto_tfidf,dictionary
 
-def reduce_dimention(dict_vecto_tfidf,dictionary,n_components,batch_size=10000):
+def reduce_dimention(dict_vecto_tfidf,n_dictionary,n_components,batch_size=2000):
     logging.info("reduce dimention of matrix")
-    sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf,num_terms=len(dictionary))
+    sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf,num_terms=n_dictionary)
     ipca = IncrementalPCA(n_components=n_components,batch_size=batch_size)
     sparse_matrix_scipy = ipca.fit_transform(sparse_matrix_scipy.T.toarray())
     # sparse_matrix_scipy = ipca.transform(sparse_matrix_scipy.T.toarray())

@@ -65,6 +65,7 @@ def load_dict_product(filePath):
     return dict_product
 
 def load_dict_vecto_tfidf(filePath):
+    logging.info("load dictionary of tfidf product vectors")
     dict_vecto_tfidf = {}
     with open(filePath,"r") as file:
         for line in file.readlines():

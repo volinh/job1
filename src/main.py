@@ -94,7 +94,7 @@ if __name__ == "__main__" :
     dict_vecto_tfidf = loader.load_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH)
     sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf.values(), num_terms=len(dictionary)).toarray()
     for i in sparse_matrix_scipy:
-        print(sparse_matrix_scipy[i])
+        print(i)
     # count = 0
     # for id,vecto in dict_vecto_tfidf.items():
     #     print(id)

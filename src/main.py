@@ -59,7 +59,7 @@ def a_to_z():
     list_nns = tree.get_nns_by_item(0,20)
     logging.info(list_nns)
 
-def b_to_z():
+def b_to_z(n_components):
     logging.info("B -> Z")
     dictionary = loader.load_dictionary(setting.DICTIONARY_PATH)
     dict_vecto_tfidf = loader.load_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH)
@@ -70,7 +70,7 @@ def b_to_z():
 
     # b7 : reduce large matrix
     # sparse_matrix = cp.reduce_dimention(dict_vecto_tfidf.values(), len(dictionary), n_components=500,batch_size=20000)
-    sparse_matrix = cp.reduce_dimension_svd(dict_vecto_tfidf.values(), len(dictionary), n_components=5000)
+    sparse_matrix = cp.reduce_dimension_svd(dict_vecto_tfidf.values(), len(dictionary), n_components=n_components)
     shape = sparse_matrix.shape
     logging.info("shape : " + str(shape))
     dense_matrix = list(sparse_matrix)
@@ -80,11 +80,11 @@ def b_to_z():
 
     # b9 : search nns in tree
     dict_result = {}
-    for i in range(100):
+    for i in range(1000):
         list_nns = tree.get_nns_by_item(i, 11)
         dict_result[i] = list_nns
-    dict_product = loader.load_dict_product(setting.DICT_PRODUCT_PATH + "/500")
-    loader.save_result(setting.DICT_RESULT_PATH,dict_product,dict_map_id,dict_result)
+    dict_product = loader.load_dict_product(setting.DICT_PRODUCT_PATH)
+    loader.save_result(setting.DICT_RESULT_PATH + "_" + str(n_components),dict_product,dict_map_id,dict_result)
 
 
 
@@ -120,7 +120,12 @@ if __name__ == "__main__" :
     # # print("---------------")
 
     # a_to_z()
-    b_to_z()
+    for i in range(101):
+        if i==0:
+            continue
+        else :
+            b_to_z(i*10) 
+    # b_to_z()
     # dictionary = loader.load_dictionary(setting.DICTIONARY_PATH)
     # dict_vecto_tfidf = loader.load_dict_vecto_tfidf(setting.DICT_VECTO_TFIDF_PATH)
     # sparse_matrix_scipy = matutils.corpus2csc(dict_vecto_tfidf.values(), num_terms=len(dictionary)).toarray()

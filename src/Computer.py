@@ -76,7 +76,7 @@ def reduce_dimension_svd(dict_vecto_tfidf,n_dictionary,n_components):
     sparse_matrix_scipy = ipca.transform(sparse_matrix_scipy.T)
     return sparse_matrix_scipy
 
-def build_tree(filePath,dict,dimension,amount_tree):
+def make_tree(filePath,dict,dimension,amount_tree):
     logging.info("make a tree")
     t = AnnoyIndex(dimension)
     for id, vecto in dict.items():
@@ -88,8 +88,8 @@ def build_tree(filePath,dict,dimension,amount_tree):
 def build_tree(dict_id,dict_vecto,dimension,amount_tree):
     logging.info("make a tree")
     t = AnnoyIndex(dimension)
-    for i in range(len(dict_vecto)):
-        t.add_item(dict_id[i],dict_vecto[i])
+    for i in dict_id:
+        t.add_item(i,dict_vecto[i])
     t.build(amount_tree)
     loader.save_tree(setting.TREE_PATH,t)
     return t

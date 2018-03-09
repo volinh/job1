@@ -57,7 +57,7 @@ def a_to_z(setting,n_components):
     dense_matrix = list(sparse_matrix)
 
     # b8 : build tree
-    tree = cp.make_tree(dict_id=dict_map_id.keys(),dict_vecto=dense_matrix,dimension=shape[1],amount_tree=10)
+    tree = cp.make_tree(setting,dict_id=dict_map_id.keys(),dict_vecto=dense_matrix,dimension=shape[1],amount_tree=10)
 
     # b9 : search nns in tree
     dict_result = {}
@@ -84,7 +84,7 @@ def b_to_z(setting,n_components):
     dense_matrix = list(sparse_matrix)
 
     # b8 : build tree
-    tree = cp.make_tree(dict_id=dict_map_id.keys(), dict_vecto=dense_matrix, dimension=shape[1], amount_tree=10)
+    tree = cp.make_tree(setting,dict_id=dict_map_id.keys(), dict_vecto=dense_matrix, dimension=shape[1], amount_tree=10)
 
     # b9 : search nns in tree
     dict_result = {}
@@ -111,7 +111,7 @@ def prepare_data(setting):
     # b5 : transform to tfidf vector
     cp.transform_vecto_tfidf(setting,cp.split_text(dict_product))
 
-def compute_data(n_components,dictionary,dict_vecto_tfidf,items=1000,amount_nns=11):
+def compute_data(setting,n_components,dictionary,dict_vecto_tfidf,items=1000,amount_nns=11):
     # b6 : map id product with nonnegative integer
     list_id_product = dict_vecto_tfidf.keys()
     dict_map_id = map_id_product(list_id_product)
@@ -123,7 +123,7 @@ def compute_data(n_components,dictionary,dict_vecto_tfidf,items=1000,amount_nns=
     dense_matrix = list(sparse_matrix)
 
     # b8 : build tree
-    tree = cp.make_tree(dict_id=dict_map_id.keys(), dict_vecto=dense_matrix, dimension=shape[1], amount_tree=10)
+    tree = cp.make_tree(setting,dict_id=dict_map_id.keys(), dict_vecto=dense_matrix, dimension=shape[1], amount_tree=10)
 
     # b9 : search nns in tree
     dict_result = {}

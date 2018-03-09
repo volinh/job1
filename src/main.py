@@ -67,6 +67,12 @@ def a_to_z(setting,n_components):
     dict_product = loader.load_dict_product(setting.DICT_PRODUCT_PATH)
     loader.save_result(setting.DICT_RESULT_PATH + "_" + str(n_components),dict_product,dict_map_id,dict_result)
 
+    dict_result_id = {}
+    for i in dict_map_id.keys():
+        list_nns = tree.get_nns_by_item(i, 11)
+        dict_result_id[i] = list_nns
+    loader.save_result_id(setting.DICT_RESULT_ID_PATH,dict_map_id,dict_result_id)
+
 def b_to_z(setting,n_components):
     logging.info("B -> Z")
     dictionary = loader.load_dictionary(setting.DICTIONARY_PATH)
@@ -132,6 +138,12 @@ def compute_data(setting,n_components,dictionary,dict_vecto_tfidf,items=1000,amo
         dict_result[i] = list_nns
     dict_product = loader.load_dict_product(setting.DICT_PRODUCT_PATH)
     loader.save_result(setting.DICT_RESULT_PATH + "_" + str(n_components), dict_product, dict_map_id, dict_result)
+
+    dict_result_id = {}
+    for i in dict_map_id.keys():
+        list_nns = tree.get_nns_by_item(i, 11)
+        dict_result_id[i] = list_nns
+    loader.save_result_id(setting.DICT_RESULT_ID_PATH, dict_map_id, dict_result_id)
 
 def pass_parameter(argv):
     logging.info("get configuration file name")

@@ -149,3 +149,15 @@ def save_result(filePath, dict_product, dict_map_id, dict_result):
                 file.writelines(real_id_nns + " : " + text_id_nns + "\n")
             file.writelines("-----------------------------\n")
 
+
+def save_result_id(filePath, dict_map_id, dict_result_id):
+    logging.info("save result id")
+    with open(filePath, "w") as file:
+        for id, value in dict_result_id.items():
+            real_id = dict_map_id[id]
+            line = real_id
+            for id_nns in value:
+                real_id_nns = dict_map_id[id_nns]
+                line = line + " " + real_id_nns
+            file.writelines(line + "\n")
+

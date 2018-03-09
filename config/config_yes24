@@ -8,4 +8,5 @@ DICT_VECTO_TFIDF_PATH = ../data/yes24/dict_vecto_tfidf
 DICTIONARY_PATH = ../data/yes24/dictionary
 TREE_PATH = ../data/yes24/tree
 DICT_RESULT_PATH = ../data/yes24/dict_result
+DICT_RESULT_ID_PATH = ../data/yes24/dict_result_id
 DOMAIN = yes24.vn

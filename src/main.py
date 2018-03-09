@@ -100,7 +100,7 @@ def prepare_data(setting):
     make_folder(setting.FOLDER_DATA_PATH)
 
     # b2 : return a client connecting to server elasticsearch
-    es = loader.get_elasticsearch_client()
+    es = loader.get_elasticsearch_client(setting.HOST,setting.PORT)
 
     # b3 : scan data
     dict_raw_product = loader.scan_data(es)

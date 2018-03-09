@@ -156,7 +156,13 @@ def save_result_id(filePath, dict_map_id, dict_result_id):
         for id, value in dict_result_id.items():
             real_id = dict_map_id[id]
             line = real_id
+            stt = 0
             for id_nns in value:
+                stt += 1
+                if id_nns == real_id :
+                    continue
+                if stt>10:
+                    break
                 real_id_nns = dict_map_id[id_nns]
                 line = line + " " + real_id_nns
             file.writelines(line + "\n")

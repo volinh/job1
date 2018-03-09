@@ -1,15 +1,14 @@
 from elasticsearch import Elasticsearch, Transport, RequestsHttpConnection, helpers
 from annoy import AnnoyIndex
 from gensim import corpora
-import setting
 import logging
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
 
-def get_elasticsearch_client():
+def get_elasticsearch_client(host,port):
     return Elasticsearch(
-        [{'host': setting.HOST, 'port': setting.PORT}],
+        [{'host': host, 'port': port}],
         transport_class=Transport,
         connection_class=RequestsHttpConnection,
         sniff_on_start=True,
@@ -52,6 +51,18 @@ def scan_data(es):
         print(v)
 
     return dict_product
+
+
+def load_config_file(filePath):
+    dict_param = {}
+    with open(filePath) as f:
+        list_param = f.readlines()
+        for param in list_param:
+            if param.startswith("#") or param.startswith("\n"):
+                continue
+            key, value = param.split("=")
+            dict_param[key.strip()] = value.strip()
+    return dict_param
 
 
 def load_dictionary(filePath):

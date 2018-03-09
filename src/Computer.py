@@ -1,10 +1,10 @@
 from annoy import AnnoyIndex
-import setting
 import Loader as loader
 from gensim import corpora,models,matutils
 from sklearn.decomposition import IncrementalPCA,TruncatedSVD
 import logging
 import re
+# import setting
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -14,7 +14,7 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 #
 #     # def
 
-def preprocess_data(dict_raw_product):
+def preprocess_data(setting,dict_raw_product):
     """
         return van ban tien xu ly
     """
@@ -42,7 +42,7 @@ def split_text(dict_product):
         dict_bow_product[id] = words
     return dict_bow_product
 
-def transform_vecto_tfidf(dict_product):
+def transform_vecto_tfidf(setting,dict_product):
     """
         tạo từ điển
         return vecto tfidf sản phẩm
@@ -85,7 +85,7 @@ def make_tree(filePath,dict,dimension,amount_tree):
     t.save(filePath)
     return t
 
-def make_tree(dict_id,dict_vecto,dimension,amount_tree):
+def make_tree(setting,dict_id,dict_vecto,dimension,amount_tree):
     logging.info("make a tree")
     t = AnnoyIndex(dimension)
     for i in dict_id:

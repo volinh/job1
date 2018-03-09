@@ -37,15 +37,18 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 # print('Number of arguments:', len(sys.argv), 'arguments.')
 # print('Argument List:', str(sys.argv))
 # print(sys.argv[1])
-
+#
 import sys, getopt
 
 def main(argv):
    inputfile = None
    outputfile = None
    try:
-      opts, args = getopt.getopt(argv,"i:")
-   except getopt.GetoptError:
+      opts, args = getopt.getopt(argv,"hi:o:",["file="])
+      print(opts)
+      print(args)
+   except getopt.GetoptError as ex:
+      print(ex)
       print("error")
       print('test.py -i <inputfile> -o <outputfile>')
       sys.exit(2)
@@ -53,7 +56,7 @@ def main(argv):
       if opt == '-h':
          print('test.py -i <inputfile> -o <outputfile>')
          sys.exit()
-      elif opt in ("-i", "--ifile"):
+      elif opt =="--file":
          inputfile = arg
       elif opt in ("-o", "--ofile"):
          outputfile = arg
@@ -62,3 +65,16 @@ def main(argv):
 
 if __name__ == "__main__":
    main(sys.argv[1:])
+   print("hee")
+   try:
+       with open("../config","r") as file:
+           print(file.readlines())
+   except Exception as ex:
+       print("loi xay ra")
+# a=6
+# try :
+#     sys.exit(1)
+# except Exception as ex:
+#     a = 8
+#
+# print(a)

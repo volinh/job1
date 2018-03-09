@@ -31,3 +31,4 @@ class Setting(object):
         self.DICTIONARY_PATH = dict_param["DICTIONARY_PATH"]
         self.TREE_PATH = dict_param["TREE_PATH"]
         self.DICT_RESULT_PATH = dict_param["DICT_RESULT_PATH"]
+        self.DOMAIN = dict_param["DOMAIN"]

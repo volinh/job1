@@ -18,12 +18,12 @@ def get_elasticsearch_client(host,port):
     )
 
 
-def count_data(es):
+def count_data(es,domain):
     logging.info("count amount of data")
     query_count = {
         "query": {
             "match": {
-                "domain": "yes24"
+                "domain": domain
             }
         }
     }
@@ -31,13 +31,13 @@ def count_data(es):
     logging.info("số lượng sản phẩm : " + str(rs["count"]))
 
 
-def scan_data(es):
+def scan_data(es,domain):
     logging.info("scan data from sever")
     dict_product = {}
     query_scan = {
         "query": {
             "match": {
-                "domain": "yes24"
+                "domain": domain
             }
         }
     }

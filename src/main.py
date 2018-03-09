@@ -37,7 +37,7 @@ def a_to_z(setting,n_components):
     es = loader.get_elasticsearch_client(setting.HOST,setting.PORT)
 
     # b3 : scan data
-    dict_raw_product = loader.scan_data(es)
+    dict_raw_product = loader.scan_data(es,setting.DOMAIN)
 
     # b4 : preprocess raw data
     dict_product = cp.preprocess_data(setting,dict_raw_product)
@@ -103,7 +103,7 @@ def prepare_data(setting):
     es = loader.get_elasticsearch_client(setting.HOST,setting.PORT)
 
     # b3 : scan data
-    dict_raw_product = loader.scan_data(es)
+    dict_raw_product = loader.scan_data(es,setting.DOMAIN)
 
     # b4 : preprocess raw data
     dict_product = cp.preprocess_data(setting,dict_raw_product)

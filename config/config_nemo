@@ -1,0 +1,11 @@
+HOST = 10.5.36.17
+PORT = 9200
+PARENT_FOLDER_PATH = ../data
+FOLDER_DATA_PATH = ../data/nemo
+DICT_PRODUCT_PATH = ../data/nemo/dict_product
+DICT_RAW_PRODUCT_PATH = ../data/nemo/dict_raw_product
+DICT_VECTO_TFIDF_PATH = ../data/nemo/dict_vecto_tfidf
+DICTIONARY_PATH = ../data/nemo/dictionary
+TREE_PATH = ../data/nemo/tree
+DICT_RESULT_PATH = ../data/nemo/dict_result
+DOMAIN = nemo.vn

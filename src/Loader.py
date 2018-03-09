@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch, Transport, RequestsHttpConnection, helpers
 from annoy import AnnoyIndex
 from gensim import corpora
-import logging
+import logging,sys
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -159,11 +159,11 @@ def save_result_id(filePath, dict_map_id, dict_result_id):
             stt = 0
             for id_nns in value:
                 stt += 1
-                if id_nns == real_id :
+                real_id_nns = dict_map_id[id_nns]
+                if real_id_nns == real_id :
                     continue
                 if stt>10:
                     break
-                real_id_nns = dict_map_id[id_nns]
                 line = line + " " + real_id_nns
             file.writelines(line + "\n")
 

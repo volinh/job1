@@ -9,4 +9,6 @@ DICTIONARY_PATH = ../data/nemo/dictionary
 TREE_PATH = ../data/nemo/tree
 DICT_RESULT_PATH = ../data/nemo/dict_result
 DICT_RESULT_ID_PATH = ../data/nemo/dict_result_id
+FOLDER_HDFS_PATH = /user/linhnv/data
+FILE_NAME_HDFS = nemo
 DOMAIN = nemo.vn

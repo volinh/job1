@@ -31,5 +31,7 @@ class Setting(object):
         self.DICTIONARY_PATH = dict_param["DICTIONARY_PATH"]
         self.TREE_PATH = dict_param["TREE_PATH"]
         self.DICT_RESULT_PATH = dict_param["DICT_RESULT_PATH"]
-        self.DICT_RESULT_ID_PATH =dict_param["DICT_RESULT_ID_PATH"]
+        self.DICT_RESULT_ID_PATH = dict_param["DICT_RESULT_ID_PATH"]
+        self.FOLDER_HDFS_PATH = dict_param["FOLDER_HDFS_PATH"]
+        self.FILE_NAME_HDFS = dict_param["FILE_NAME_HDFS"]
         self.DOMAIN = dict_param["DOMAIN"]

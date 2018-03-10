@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch, Transport, RequestsHttpConnection, helpers
 from annoy import AnnoyIndex
 from gensim import corpora
-import logging,sys
+import logging,subprocess
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -166,4 +166,25 @@ def save_result_id(filePath, dict_map_id, dict_result_id):
                     break
                 line = line + " " + real_id_nns
             file.writelines(line + "\n")
+
+
+def save_file_to_hdfs(folderHDFSPath,fileName,fileLocalPath):
+    logging.info("save file to hdfs")
+    script_check_folder = "/opt/hadoop/bin/hadoop fs -test -d " + folderHDFSPath
+    rs1 = subprocess.call(script_check_folder, shell=True)
+    if rs1==1:
+        script_make_folder = "/opt/hadoop/bin/hadoop fs -mkdir " + folderHDFSPath
+        subprocess.call(script_make_folder, shell=True)
+
+    script_check_file = "/opt/hadoop/bin/hadoop fs -test -e " + folderHDFSPath + "/" + fileName
+    rs2 = subprocess.call(script_check_file, shell=True)
+    if rs2==1:
+        script_make_file = "/opt/hadoop/bin/hadoop  fs -copyFromLocal " + fileLocalPath + " " + folderHDFSPath + "/" + fileName
+        subprocess.call(script_make_file, shell=True)
+    elif rs2==0:
+        script_drop_file = "/opt/hadoop/bin/hadoop fs -rm " + folderHDFSPath + "/" + fileName
+        subprocess.call(script_drop_file, shell=True)
+        script_make_file = "/opt/hadoop/bin/hadoop  fs -copyFromLocal " + fileLocalPath + " " + folderHDFSPath + "/" + fileName
+        subprocess.call(script_make_file, shell=True)
+
 

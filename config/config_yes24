@@ -9,4 +9,6 @@ DICTIONARY_PATH = ../data/yes24/dictionary
 TREE_PATH = ../data/yes24/tree
 DICT_RESULT_PATH = ../data/yes24/dict_result
 DICT_RESULT_ID_PATH = ../data/yes24/dict_result_id
+FOLDER_HDFS_PATH = /user/linhnv/data
+FILE_NAME_HDFS = yes24
 DOMAIN = yes24.vn

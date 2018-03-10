@@ -1,3 +1,4 @@
+from setting import Setting
 import Loader as loader
 import Computer as cp
 import time
@@ -5,7 +6,8 @@ import logging
 import os
 import sys
 import getopt
-from setting import Setting
+import subprocess
+
 from gensim import matutils
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
@@ -72,6 +74,10 @@ def a_to_z(setting,n_components):
         list_nns = tree.get_nns_by_item(i, 11)
         dict_result_id[i] = list_nns
     loader.save_result_id(setting.DICT_RESULT_ID_PATH,dict_map_id,dict_result_id)
+
+    #b10 copy file to hdfs
+    loader.save_file_to_hdfs(setting.FOLDER_HDFS_PATH,setting.FILE_NAME_HDFS,setting.DICT_RESULT_ID_PATH)
+
 
 def b_to_z(setting,n_components):
     logging.info("B -> Z")
